@@ -1,3 +1,5 @@
+package socket;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -33,7 +35,7 @@ public class Client {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         //得到socket输出流，转换为打印流
         PrintStream printStream = new PrintStream(socket.getOutputStream());
-        //得到socket输出流，转换为BufferReader
+        //得到socket输入流，转换为BufferReader
         BufferedReader socketBufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         boolean flag=true;
         do {
@@ -42,10 +44,11 @@ public class Client {
             printStream.println(string);
             //获取服务端响应数据
             String echo = socketBufferedReader.readLine();
-            if ("bye".equalsIgnoreCase(echo))
+            if ("bye".equalsIgnoreCase(echo)) {
                 flag = false;
-            else
+            } else {
                 System.out.println(echo);
+            }
         }while (flag);
         //关闭流
         printStream.close();
